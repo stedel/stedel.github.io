@@ -1,0 +1,36 @@
+.task {
+    color: black;
+    padding-left: 1em;
+}
+
+.info {
+    border: 1px solid grey;
+    background: #c3ecea;
+    color: black;
+    padding-left: 1em;
+}
+
+.explanation {
+    color: blueviolet;
+}
+
+.spritesheet {
+    position: absolute;
+}
+
+.spritesheet-boundaries {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+a:hover {
+    text-underline-position: auto;
+}
+
+a.disabled, a.disabled:hover{
+    pointer-events: none;
+    color: lightgrey;
+    text-underline-position: unset;
+}
