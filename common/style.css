@@ -34,3 +34,7 @@ a.disabled, a.disabled:hover{
     color: lightgrey;
     text-underline-position: unset;
 }
+
+canvas {
+    outline: solid 1px black;
+}
