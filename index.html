@@ -3,10 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <title>Stedel</title>
+    <script src="https://unpkg.com/browse/tsparticles@1.14.3/dist/tsparticles.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+      body {
+        height: 100%;
+        width: 100%;
+      }
+
+      .info {
+        position: absolute;
+        z-index: 100;
+        background: transparent;
+
+        height: 100%;
+        width: 100%;
+
+        color: white;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
   </head>
   <body>
     <div class="info">
       <h1>Stedel</h1>
     </div>
+    <div id="tsparticles"></div>
   </body>
 </html>
