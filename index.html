@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <title>Stedel</title>
-    <script
-      defer
-      src="https://unpkg.com/browse/tsparticles@1.14.3/dist/tsparticles.min.js"
-    ></script>
+    <script defer src="https://unpkg.com/browse/tsparticles@1.14.3/dist/tsparticles.min.js"></script>
     <script defer src="app.js"></script>
     <style>
       body {
         height: 100%;
         width: 100%;
+
+        margin: 0;
+        padding: 0;
       }
 
       .info {
@@ -29,6 +29,10 @@
         align-items: center;
       }
 
+      .info .h1 {
+        mix-blend-mode: difference;
+      }
+
       .particles {
         position: absolute;
         width: 100%;
@@ -38,7 +42,7 @@
   </head>
   <body>
     <div class="info">
-      <h1>Stedel</h1>
+      <h1>Ste🅱li</h1>
     </div>
     <div id="tsparticles"></div>
   </body>
