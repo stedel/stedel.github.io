@@ -3,15 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <title>Stedel</title>
-    <script defer src="https://unpkg.com/browse/tsparticles@1.14.3/dist/tsparticles.min.js"></script>
-    <script defer src="app.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/tsparticles@1.14.3/dist/tsparticles.min.js"
+      integrity="sha256-QnZ7SAg+dFKuu6rEKsHrlUlMz4nnGHcaI/MJRLXsQkU="
+      crossorigin="anonymous"
+    ></script>
+    <script src="app.js"></script>
     <style>
+      html {
+        height: 100%;
+        width: 100%;
+      }
       body {
         height: 100%;
         width: 100%;
 
         margin: 0;
         padding: 0;
+
+        font-family: 'Roboto Mono', monospace;
       }
 
       .info {
@@ -22,18 +36,37 @@
         height: 100%;
         width: 100%;
 
-        color: white;
-
         display: flex;
         justify-content: center;
         align-items: center;
+
+        pointer-events: none;
       }
 
-      .info .h1 {
+      .info-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 1em;
+
+        background-color: #333333a0;
+        border-radius: 0.5em;
+      }
+
+      .info .info-container h1 {
+        pointer-events: all;
+
+        padding: 0.25em;
+        margin: 0;
+
         mix-blend-mode: difference;
+
+        color: white;
+        font-size: 1.5em;
       }
 
-      .particles {
+      #tsparticles {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -42,7 +75,9 @@
   </head>
   <body>
     <div class="info">
-      <h1>Ste🅱li</h1>
+      <div class="info-container">
+        <h1>Ste🅱li</h1>
+      </div>
     </div>
     <div id="tsparticles"></div>
   </body>
