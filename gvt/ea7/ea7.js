@@ -1,4 +1,4 @@
-var app = (function() {
+var app = (function () {
   let gl;
 
   // The shader program object is also used to
@@ -9,7 +9,7 @@ var app = (function() {
     torusRotation: 120,
     sphereMove: 120,
     sphereSteps: 120,
-    sphereMoveTime: 20
+    sphereMoveTime: 20,
   };
 
   // keep track of animation step state
@@ -33,7 +33,7 @@ var app = (function() {
     up: [0, 1, 0],
     // Opening angle given in radian.
     // radian = degree*2*PI/360.
-    fovy: 60.0 * Math.PI / 180,
+    fovy: (60.0 * Math.PI) / 180,
     // Camera near plane dimensions:
     // value for left right top bottom in projection.
     lrtb: 2.0,
@@ -42,14 +42,14 @@ var app = (function() {
     // Projection matrix.
     pMatrix: mat4.create(),
     // Projection types: ortho, perspective, frustum.
-    projectionType: "perspective",
+    projectionType: 'perspective',
     // Angle to Z-Axis for camera when orbiting the center
     // given in radian.
     zAngle: 0,
     // Distance in XZ-Plane from center when orbiting.
     distance: 4,
 
-    u: 1
+    u: 1,
   };
 
   /**
@@ -72,17 +72,17 @@ var app = (function() {
    */
   function initWebGL() {
     // Get canvas and WebGL context.
-    const canvas = document.getElementById("ea7canvas");
-    gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    const canvas = document.getElementById('ea7canvas');
+    gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     gl.viewportWidth = canvas.width;
     gl.viewportHeight = canvas.height;
   }
 
   /**
-	 * Init pipeline parameters that will not change again. 
-	 * If projection or viewport change, their setup must
-	 * be in render function.
-	 */
+   * Init pipeline parameters that will not change again.
+   * If projection or viewport change, their setup must
+   * be in render function.
+   */
   function initPipline() {
     // setup
     gl.clearColor(0.764, 0.925, 0.917, 1); // Clear background default color
@@ -108,37 +108,37 @@ var app = (function() {
   }
 
   /**
-   * Init vertex- and fragment shader with code in ea7.html 
+   * Init vertex- and fragment shader with code in ea7.html
    * script elements with ids 'vertexshader' and 'fragmentshader'.
    */
   function initShaderProgram() {
     // Init vertex shader.
-    const vs = initShader(gl.VERTEX_SHADER, "vertexshader");
+    const vs = initShader(gl.VERTEX_SHADER, 'vertexshader');
     // Init fragment shader.
-    const fs = initShader(gl.FRAGMENT_SHADER, "fragmentshader");
+    const fs = initShader(gl.FRAGMENT_SHADER, 'fragmentshader');
     // Link shader into a shader program.
     prog = gl.createProgram();
     gl.attachShader(prog, vs);
     gl.attachShader(prog, fs);
-    gl.bindAttribLocation(prog, 0, "aPosition");
+    gl.bindAttribLocation(prog, 0, 'aPosition');
     gl.linkProgram(prog);
     gl.useProgram(prog);
   }
 
   /**
-	 * Create and init shader from source.
-	 * 
-	 * @parameter shaderType: openGL shader type.
-	 * @parameter SourceTagId: Id of HTML Tag with shader source.
-	 * @returns shader object.
-	 */
+   * Create and init shader from source.
+   *
+   * @parameter shaderType: openGL shader type.
+   * @parameter SourceTagId: Id of HTML Tag with shader source.
+   * @returns shader object.
+   */
   function initShader(shaderType, SourceTagId) {
     const shader = gl.createShader(shaderType);
     const shaderSource = document.getElementById(SourceTagId).text;
     gl.shaderSource(shader, shaderSource);
     gl.compileShader(shader);
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      console.log(SourceTagId + ": " + gl.getShaderInfoLog(shader));
+      console.log(SourceTagId + ': ' + gl.getShaderInfoLog(shader));
       return null;
     }
     return shader;
@@ -149,13 +149,13 @@ var app = (function() {
    */
   function initUniforms() {
     // Projection Matrix.
-    prog.pMatrixUniform = gl.getUniformLocation(prog, "uPMatrix");
+    prog.pMatrixUniform = gl.getUniformLocation(prog, 'uPMatrix');
 
     // Model-View-Matrix.
-    prog.mvMatrixUniform = gl.getUniformLocation(prog, "uMVMatrix");
+    prog.mvMatrixUniform = gl.getUniformLocation(prog, 'uMVMatrix');
 
     // Color Vec4.
-    prog.colorUniform = gl.getUniformLocation(prog, "uColor");
+    prog.colorUniform = gl.getUniformLocation(prog, 'uColor');
   }
 
   /**
@@ -164,8 +164,8 @@ var app = (function() {
    */
   function initModels() {
     // fillstyle
-    const fs = "fillwireframe",
-      ws = "wireframe";
+    const fs = 'fillwireframe',
+      ws = 'wireframe';
 
     // color names according to 335u.net
     const colors = {
@@ -175,107 +175,99 @@ var app = (function() {
       ultramarine: [0.23, 0.46, 1, 1],
       rackley: [0.35, 0.63, 0.5, 1],
       icterine: [1, 1, 0.5, 1],
-      malachite: [0, 1, 0.35, 1]
+      malachite: [0, 1, 0.35, 1],
     };
 
     createModel(
-      "plane",
+      'plane',
       ws,
       colors.grey,
       [0, -0.8, 0],
       [0, 0, 0],
       [1, 1, 1],
-      0
+      0,
     );
 
-    createModel(
-      "torus",
-      fs,
-      colors.grey,
-      [0, 0, 0],
-      [0, 0, 0],
-      [2, 2, 2],
-      0
-    );
+    createModel('torus', fs, colors.grey, [0, 0, 0], [0, 0, 0], [2, 2, 2], 0);
 
     createModel(
-      "sphere",
+      'sphere',
       fs,
       colors.grey,
       [1, 0, 0],
       [0, 0, 0],
       [0.5, 0.5, 0.5],
-      0
+      0,
     );
 
     createModel(
-      "sphere",
+      'sphere',
       fs,
       colors.grey,
       [1, 1, 0],
       [0, 0, 0],
       [0.5, 0.5, 0.5],
-      0
+      0,
     );
 
     createModel(
-      "sphere",
+      'sphere',
       fs,
       colors.grey,
       [0, 1, 0],
       [0, 0, 0],
       [0.5, 0.5, 0.5],
-      0
+      0,
     );
 
     createModel(
-      "sphere",
+      'sphere',
       fs,
       colors.grey,
       [-1, 1, 0],
       [0, 0, 0],
       [0.5, 0.5, 0.5],
-      0
+      0,
     );
 
     createModel(
-      "sphere",
+      'sphere',
       fs,
       colors.grey,
       [-1, 0, 0],
       [0, 0, 0],
       [0.5, 0.5, 0.5],
-      0
+      0,
     );
 
     createModel(
-      "sphere",
+      'sphere',
       fs,
       colors.grey,
       [-1, -1, 0],
       [0, 0, 0],
       [0.5, 0.5, 0.5],
-      0
+      0,
     );
 
     createModel(
-      "sphere",
+      'sphere',
       fs,
       colors.grey,
       [0, -1, 0],
       [0, 0, 0],
       [0.5, 0.5, 0.5],
-      0
+      0,
     );
 
     createModel(
-      "sphere",
+      'sphere',
       fs,
       colors.grey,
       [1, -1, 0],
       [0, 0, 0],
       [0.5, 0.5, 0.5],
-      0
+      0,
     );
   }
 
@@ -299,18 +291,18 @@ var app = (function() {
         let animationOffset = 0.125 * (i - 2);
         models[i].translate[2] = Math.sin(
           (animationStep / animationFactors.sphereSteps + animationOffset) *
-            (2 * Math.PI)
+            (2 * Math.PI),
         );
       }
     }
   }
 
   /**
-	 * Create model object, fill it and push it in models array.
-	 * 
-	 * @parameter geometryname: string with name of geometry.
-	 * @parameter fillstyle: wireframe, fill, fillwireframe.
-	 */
+   * Create model object, fill it and push it in models array.
+   *
+   * @parameter geometryname: string with name of geometry.
+   * @parameter fillstyle: wireframe, fill, fillwireframe.
+   */
   function createModel(
     geometryname,
     fillstyle,
@@ -318,7 +310,7 @@ var app = (function() {
     translate,
     rotate,
     scale,
-    angle
+    angle,
   ) {
     const model = {};
     model.fillstyle = fillstyle;
@@ -330,8 +322,8 @@ var app = (function() {
   }
 
   /**
-	 * Set scale, rotation and transformation for model.
-	 */
+   * Set scale, rotation and transformation for model.
+   */
   function initTransformations(model, translate, rotate, scale) {
     // Store transformation vectors.
     model.translate = translate;
@@ -346,24 +338,24 @@ var app = (function() {
   }
 
   /**
-	 * Init data and buffers for model object.
-	 * 
-	 * @parameter model: a model object to augment with data.
-	 * @parameter geometryname: string with name of geometry.
-	 */
+   * Init data and buffers for model object.
+   *
+   * @parameter model: a model object to augment with data.
+   * @parameter geometryname: string with name of geometry.
+   */
   function initDataAndBuffers(model, geometryname) {
     // Provide model object with vertex data arrays.
     // Fill data arrays for Vertex-Positions, Normals, Index data:
     // vertices, normals, indicesLines, indicesTris;
     // Pointer this refers to the window.
-    this[geometryname]["createVertexData"].apply(model);
+    this[geometryname]['createVertexData'].apply(model);
 
     // Setup position vertex buffer object.
     model.vboPos = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, model.vboPos);
     gl.bufferData(gl.ARRAY_BUFFER, model.vertices, gl.STATIC_DRAW);
     // Bind vertex buffer to attribute variable.
-    prog.positionAttrib = gl.getAttribLocation(prog, "aPosition");
+    prog.positionAttrib = gl.getAttribLocation(prog, 'aPosition');
     gl.enableVertexAttribArray(prog.positionAttrib);
 
     // Setup normal vertex buffer object.
@@ -371,7 +363,7 @@ var app = (function() {
     gl.bindBuffer(gl.ARRAY_BUFFER, model.vboNormal);
     gl.bufferData(gl.ARRAY_BUFFER, model.normals, gl.STATIC_DRAW);
     // Bind buffer to attribute variable.
-    prog.normalAttrib = gl.getAttribLocation(prog, "aNormal");
+    prog.normalAttrib = gl.getAttribLocation(prog, 'aNormal');
     gl.enableVertexAttribArray(prog.normalAttrib);
 
     // Setup lines index buffer object.
@@ -398,7 +390,7 @@ var app = (function() {
     const deltaRotate = Math.PI / 36;
     const deltaTranslate = 0.05;
 
-    window.onkeydown = function(evt) {
+    window.onkeydown = function (evt) {
       const key = evt.which ? evt.which : evt.keyCode;
       const c = String.fromCharCode(key);
       // console.log(evt);
@@ -407,42 +399,42 @@ var app = (function() {
 
       // Change projection of scene.
       switch (c) {
-        case "O":
-          camera.projectionType = "ortho";
+        case 'O':
+          camera.projectionType = 'ortho';
           camera.lrtb = 2;
           break;
-        case "F":
-          camera.projectionType = "frustum";
+        case 'F':
+          camera.projectionType = 'frustum';
           camera.lrtb = 1.2;
           break;
-        case "P":
-          camera.projectionType = "perspective";
+        case 'P':
+          camera.projectionType = 'perspective';
           break;
       }
 
       // Camera move and orbit.
       switch (c) {
-        case "H":
+        case 'H':
           // Move camera up and down.
           camera.eye[1] += sign * deltaTranslate;
           break;
-        case "D":
+        case 'D':
           // Camera distance to center.
           camera.distance += sign * deltaTranslate;
           break;
-        case "V":
+        case 'V':
           // Camera fovy in radian.
-          camera.fovy += sign * 5 * Math.PI / 180;
+          camera.fovy += (sign * 5 * Math.PI) / 180;
           break;
       }
 
       // Toggle movement of models
       switch (c) {
-        case "J":
+        case 'J':
           // Toggle sphere movement
           sphereMovementEnabled = !sphereMovementEnabled;
           break;
-        case "K":
+        case 'K':
           // Toggle torus rotation
           torusRotationEnabled = !torusRotationEnabled;
       }
@@ -458,8 +450,8 @@ var app = (function() {
   }
 
   /**
-	 * Run the rendering pipeline.
-	 */
+   * Run the rendering pipeline.
+   */
   function render() {
     // Clear framebuffer and depth-/z-buffer.
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -498,13 +490,13 @@ var app = (function() {
     // Set projection Matrix.
     const v = camera.lrtb;
     switch (camera.projectionType) {
-      case "ortho":
+      case 'ortho':
         mat4.ortho(camera.pMatrix, -v, v, -v, v, -10, 10);
         break;
-      case "frustum":
+      case 'frustum':
         mat4.frustum(camera.pMatrix, -v / 2, v / 2, -v / 2, v / 2, 1, 10);
         break;
-      case "perspective":
+      case 'perspective':
         mat4.perspective(camera.pMatrix, camera.fovy, camera.aspect, 1, 10);
         break;
     }
@@ -513,8 +505,8 @@ var app = (function() {
   }
 
   /**
-	 * Update model-view matrix for model.
-	 */
+   * Update model-view matrix for model.
+   */
   function updateTransformations(model) {
     // Use shortcut variables.
     let mMatrix = model.mMatrix;
@@ -559,7 +551,7 @@ var app = (function() {
         gl.TRIANGLES,
         model.iboTris.numberOfElements,
         gl.UNSIGNED_SHORT,
-        0
+        0,
       );
     }
 
@@ -573,13 +565,13 @@ var app = (function() {
         gl.LINES,
         model.iboLines.numberOfElements,
         gl.UNSIGNED_SHORT,
-        0
+        0,
       );
     }
   }
 
   // App interface.
   return {
-    start: start
+    start: start,
   };
 })();

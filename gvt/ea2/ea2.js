@@ -2,14 +2,14 @@
  * Created by Steffen Meifort on 2017-04-09.
  */
 
-"use strict";
+'use strict';
 
-$(function() {
+$(function () {
   createGraphic();
 });
 
 function createGraphic() {
-  const canvas = document.getElementById("canvas");
+  const canvas = document.getElementById('canvas');
   const gl = initWebGL(canvas);
 
   if (gl) {
@@ -22,14 +22,14 @@ function createGraphic() {
 
     // compile vertex shader
     const vsSource =
-      "attribute vec2 pos;" +
-      "void main(){gl_Position = vec4(pos * 1.75, 0, 1); }";
+      'attribute vec2 pos;' +
+      'void main(){gl_Position = vec4(pos * 1.75, 0, 1); }';
     const vs = gl.createShader(gl.VERTEX_SHADER);
     gl.shaderSource(vs, vsSource);
     gl.compileShader(vs);
 
     // compile fragment shader
-    const fsSouce = "void main() { gl_FragColor = vec4(0.2, 0.2, 0.2, 1); }";
+    const fsSouce = 'void main() { gl_FragColor = vec4(0.2, 0.2, 0.2, 1); }';
     const fs = gl.createShader(gl.FRAGMENT_SHADER);
     gl.shaderSource(fs, fsSouce);
     gl.compileShader(fs);
@@ -65,7 +65,7 @@ function createGraphic() {
       0.2,
       -0.45,
       0.4,
-      -0.3
+      -0.3,
     ]);
 
     const shutterBlade = new Float32Array([
@@ -76,14 +76,14 @@ function createGraphic() {
       0.45,
       0,
       0.4,
-      -0.1
+      -0.1,
     ]);
 
     const vbo = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
     gl.bufferData(gl.ARRAY_BUFFER, shutterOutside, gl.STATIC_DRAW);
 
-    const posAttrib = gl.getAttribLocation(prog, "pos");
+    const posAttrib = gl.getAttribLocation(prog, 'pos');
     gl.vertexAttribPointer(posAttrib, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(posAttrib);
 
@@ -92,7 +92,7 @@ function createGraphic() {
     const shutterBladeCount = 12;
 
     // radians conversion + difference between each shutterBlade
-    const rotationDegrees = Math.PI / 180 * (360 / shutterBladeCount);
+    const rotationDegrees = (Math.PI / 180) * (360 / shutterBladeCount);
 
     let nextShutterBlade = shutterBlade;
     for (let i = 0; i < shutterBladeCount; i++) {
@@ -104,11 +104,11 @@ function createGraphic() {
   }
 
   /**
-     * Rotates the given Float32Array counterclockwise around the center (0,0).
-     * @param {Float32Array} toBeRotated
-     * @param {number} degrees
-     * @returns {Float32Array} rotated array
-     */
+   * Rotates the given Float32Array counterclockwise around the center (0,0).
+   * @param {Float32Array} toBeRotated
+   * @param {number} degrees
+   * @returns {Float32Array} rotated array
+   */
   function rotate(toBeRotated, degrees) {
     let rotated = new Float32Array(toBeRotated.length);
 
@@ -124,20 +124,20 @@ function createGraphic() {
   }
 
   /**
-     * Tries to create a WebGL context on the given canvas.
-     * @param {HTMLCanvasElement} canvas - Canvas on which the context will be created
-     * @returns {WebGLRenderingContext} Either a context or null
-     */
+   * Tries to create a WebGL context on the given canvas.
+   * @param {HTMLCanvasElement} canvas - Canvas on which the context will be created
+   * @returns {WebGLRenderingContext} Either a context or null
+   */
   function initWebGL(canvas) {
     let context = null;
 
     try {
       context =
-        canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+        canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     } catch (e) {}
 
     if (!context) {
-      alert("WebGL konnte nicht initialisiert werden.");
+      alert('WebGL konnte nicht initialisiert werden.');
       context = null;
     }
 

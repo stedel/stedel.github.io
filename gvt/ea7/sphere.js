@@ -1,4 +1,4 @@
-var sphere = (function() {
+var sphere = (function () {
   function createVertexData() {
     var n = 32;
     var m = 32;
@@ -15,7 +15,7 @@ var sphere = (function() {
     this.indicesTris = new Uint16Array(3 * 2 * n * m);
     var indicesTris = this.indicesTris;
 
-    var du = 2 * Math.PI / n;
+    var du = (2 * Math.PI) / n;
     var dv = Math.PI / m;
     var r = 0.8;
     // Counter for entries in index array.
@@ -71,6 +71,6 @@ var sphere = (function() {
   }
 
   return {
-    createVertexData: createVertexData
+    createVertexData: createVertexData,
   };
 })();

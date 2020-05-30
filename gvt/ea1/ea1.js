@@ -2,7 +2,7 @@
  * Created by Steffen Meifort on 2017-04-09.
  */
 
-"use strict";
+'use strict';
 
 const KEY_R = 82;
 const KEY_L = 76;
@@ -13,14 +13,14 @@ let radian = 0;
 
 const SPRITESHEET_FRAMETIME = 200;
 const SPRITESHEET_POSITIONS = [
-  ["0px", "0px"],
-  ["0px", "-400px"],
-  ["0px", "-800px"],
-  ["0px", "-1200px"],
-  ["-400px", "-1200px"],
-  ["-400px", "-800px"],
-  ["-400px", "-400px"],
-  ["-400px", "0px"]
+  ['0px', '0px'],
+  ['0px', '-400px'],
+  ['0px', '-800px'],
+  ['0px', '-1200px'],
+  ['-400px', '-1200px'],
+  ['-400px', '-800px'],
+  ['-400px', '-400px'],
+  ['-400px', '0px'],
 ];
 const ANIMATION_SEQUENCE = [
   0,
@@ -45,13 +45,13 @@ const ANIMATION_SEQUENCE = [
   7,
   4,
   4,
-  0
+  0,
 ];
 
 let currentAnimationFrame = 0;
 let spritesheetAnimationIntervalId = 0;
 
-$(function() {
+$(function () {
   $(document).keydown(keyPressed);
 });
 
@@ -101,7 +101,7 @@ function rotate(clockwise) {
  * @param radian the radian to be displayed
  */
 function updateCircle(radian) {
-  $("#circle").attr("src", "images/circle_" + radian + ".png");
+  $('#circle').attr('src', 'images/circle_' + radian + '.png');
 }
 
 /**
@@ -111,7 +111,7 @@ function startSpriteAnimation() {
   if (currentAnimationFrame === 0) {
     spritesheetAnimationIntervalId = setInterval(
       animateSprite,
-      SPRITESHEET_FRAMETIME
+      SPRITESHEET_FRAMETIME,
     );
   }
 }
@@ -133,7 +133,7 @@ function animateSprite() {
   const currentSpritePositionIndex = ANIMATION_SEQUENCE[currentAnimationFrame];
   updateSpriteCss(
     SPRITESHEET_POSITIONS[currentSpritePositionIndex][0],
-    SPRITESHEET_POSITIONS[currentSpritePositionIndex][1]
+    SPRITESHEET_POSITIONS[currentSpritePositionIndex][1],
   );
 }
 
@@ -144,6 +144,6 @@ function animateSprite() {
  * @param left left offset
  */
 function updateSpriteCss(top, left) {
-  $("#spritesheet").css("top", top);
-  $("#spritesheet").css("left", left);
+  $('#spritesheet').css('top', top);
+  $('#spritesheet').css('left', left);
 }

@@ -1,4 +1,4 @@
-var plane = (function() {
+var plane = (function () {
   function createVertexData() {
     var n = 100;
     var m = 100;
@@ -69,6 +69,6 @@ var plane = (function() {
   }
 
   return {
-    createVertexData: createVertexData
+    createVertexData: createVertexData,
   };
 })();

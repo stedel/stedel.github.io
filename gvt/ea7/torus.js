@@ -1,4 +1,4 @@
-var torus = (function() {
+var torus = (function () {
   function createVertexData() {
     var n = 32;
     var m = 32;
@@ -15,8 +15,8 @@ var torus = (function() {
     this.indicesTris = new Uint16Array(3 * 2 * n * m);
     var indicesTris = this.indicesTris;
 
-    var du = 2 * Math.PI / n;
-    var dv = 2 * Math.PI / m;
+    var du = (2 * Math.PI) / n;
+    var dv = (2 * Math.PI) / m;
     var r = 0.1;
     var R = 0.6;
     // Counter for entries in index array.
@@ -78,6 +78,6 @@ var torus = (function() {
   }
 
   return {
-    createVertexData: createVertexData
+    createVertexData: createVertexData,
   };
 })();
