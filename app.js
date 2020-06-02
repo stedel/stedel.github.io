@@ -1,16 +1,6 @@
 document.onreadystatechange = function () {
   tsParticles.load('tsparticles', {
     absorbers: [],
-    background: {
-      color: {
-        value: '#0d47a1',
-      },
-      image:
-        'radial-gradient(ellipse at top left, #160da1db, transparent), radial-gradient(ellipse at bottom right, #78a525de, transparent), linear-gradient(-45deg, #0355AD, #D73A1C)',
-      position: '50% 50%',
-      repeat: 'no-repeat',
-      size: 'cover',
-    },
     backgroundMask: {
       cover: {
         color: {
