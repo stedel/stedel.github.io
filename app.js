@@ -166,7 +166,7 @@ document.onreadystatechange = function () {
         density: {
           enable: true,
           area: 800,
-          factor: 333,
+          factor: 3333,
         },
         limit: 0,
         value: 100,
